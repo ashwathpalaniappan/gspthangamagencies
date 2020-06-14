@@ -18,6 +18,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
+<section id="top">
 <div class="btn">
       <span class="fa fa-search"></span>
     </div>
@@ -2658,7 +2659,7 @@
 <br>
     </section>
 
-<section id="bev company3" class="spacing2">
+<section id="bev company3" class="spacing4">
 <br><br>
 <h1 style="color: #19835C;">Cavins Milkshake</h1>
     <br><br>
@@ -2740,10 +2741,21 @@
 </section>
 
 <br><br><br>
+</center>
+</section>
 
-<section id="cart" class="spacing2">
+<section id="success" class="spacing4" style="display: none;"><br>
+        <center>
+        <img src="img/dummy.png" id="disp" class="fin_img">
+        <p id="result1" style="color:#20A072;font-size:20px;"></p>
+        <button id="pdf" type="button" onclick="downloadDoc()" style="display: none;">Downlod Invoice</button>
+        </center>
+</section>
+
+<section id="cart" style="display: none;">
+    <center>
 <br><br>
-<h1 style="color: #19835C;">Cart Items</h1>
+<h1 id="cart_items" style="color: #19835C;">Cart Items</h1>
     <br>
     <div id="output">
     <table id="table">
@@ -2774,13 +2786,16 @@
         </div>
 <p id="result"  style="display: none;"></p><br>
 <p id="result_tot" style="display: none;"></p>
-    <br><button type="button" onclick="clear2()" class="clear"> Clear Table </button> &nbsp;&nbsp;
-<button type="button" onclick="check()" class="buy"> Buy Now </button>
+        <p id="alert" class="alrt"></p>
+    <br><button type="button" onclick="back()" id="b1" class="buy" style="background: #1c2e4a;"> Back to Shop </button> &nbsp;
+        <button type="button" onclick="clear2()" id="b2" class="clear"> Clear Table </button> &nbsp;&nbsp;
+<button type="button" onclick="check()" id="b3" class="buy"> Buy Now </button>
 <br>
+    </center>
 </section>
 
-<section id="user" class="spacing">
-
+<section id="user" class="spacing" style="display: none;">
+<center>
 
     <div class="container">
 		<div class="login-content">
@@ -2815,19 +2830,14 @@
             	   </div>
             	</div>
 				<br>
-                <button type="button" class="btn2" onclick="writeData()">Proceed</button>
+                <button type="button" class="buy" onclick="backcart()" style="background: #1c2e4a;" >Back to cart</button> &nbsp;
+                <button type="button" class="buy" onclick="writeData()" style="">Proceed</button>
             </form>
         </div>
     </div>
-
-</section>
-    <section class="spacing2"></section>
-    <section id="success" class="spacing"><br>
-        <img src="img/dummy.png" id="disp" class="fin_img">
-        <p id="result1" style="color:#20A072;font-size:20px;"></p>
-        <button id="pdf" type="button" onclick="downloadDoc()" style="display: none;">Downlod Invoice</button>
-    </section>
 </center>
+</section>
+
 <script>
 
     $('.btn').click(function(){
@@ -3044,16 +3054,27 @@ function check()
   var str_tot = str.slice(17);
    if(Number(str_tot)<1000)
    {
-   alert("You can place orders, only if the total amount is greater than 1000");
+   document.getElementById("alert").innerHTML = "<b>You can place orders, only if the total amount is greater than 1000</b>";
    }
    else
    {
+   document.getElementById("user").style = "display: block;"
+   document.getElementById("top").style = "display: none;"
+    document.getElementById("cart").style = "display: none;"
+    document.getElementById("success").style = "display: none;"
    location.href = "#user";
    }
 }
-
+function backcart()
+{
+document.getElementById("user").style = "display: none;"
+document.getElementById("top").style = "display: none;"
+document.getElementById("cart").style = "display: block;"
+document.getElementById("success").style = "display: none;"
+}
 function clear2()
 {
+document.getElementById("alert").innerHTML = "";
 var output2 = document.getElementById('output');
 var table2 = "<table><thead><tr><th>S.No</th><th>Item</th><th>Qty</th><th>Amount</th><th>Net Value</th></tr></thead><tbody>";
 table2 += "<tr><td>" + "-" + "</td><td>" + "-" + "</td><td>" + "-" + "</td><td>" + "-" + "</td><td>" + "-" + "</td></tr> <tr><td></td><td></td><td></td><td></td><td>Rs.0</td></tr>";
@@ -3222,9 +3243,22 @@ document.getElementById("n_number").innerHTML = "<b>0</b>";
 
 }
 
+function back()
+{
+document.getElementById("top").style = "display: block;"
+document.getElementById("cart").style = "display: none;"
+document.getElementById("user").style = "display: none;"
+document.getElementById("success").style = "display: none;"
+document.getElementById("alert").innerHTML = "";
+location.href = "#milk";
 
+}
 function cart()
   {
+        document.getElementById("top").style = "display: none;"
+        document.getElementById("cart").style = "display: block;"
+        document.getElementById("user").style = "display: none;"
+        document.getElementById("success").style = "display: none;"
         var c1fcm1field = document.getElementById("c1fcm1field").value;
         var c1fcm2field = document.getElementById("c1fcm2field").value;
         var c1sm3field = document.getElementById("c1sm3field").value;
@@ -4824,7 +4858,7 @@ var yyyy = today.getFullYear();
         "key": "rzp_test_zRJloAKnUn7v64", // Enter the Key ID generated from the Dashboard
         "amount": Number(str_tot)*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 means 50000 paise or ₹500.
         "currency": "INR",
-        "name": "Grocery Store",
+        "name": "GSP Thangam Agencies",
         "description": "Online Payment",
         "image": "logo.png",// Replace this with the order_id created using Orders API (https://razorpay.com/docs/api/orders).
         "handler": function (response){
@@ -4875,10 +4909,18 @@ var yyyy = today.getFullYear();
     Body : "Name:<br>" + name + "<br><br>Phone:<br>" + phn + "<br><br>Address:<br>" + adr1 + ",<br>" + adr2 + ",<br>" + adr3 + ".<br><br>Items:<br>" + item2 + "<br>Total Amount: " + document.getElementById("result_tot").innerText.slice(14) + ""
     });
 
-   document.getElementById("pdf").style="display: block; background-color: #20A072; border: none; color: white; padding: 2px 8px; border-radius: 25px; height: 40px; width: 150px;"
-  document.getElementById("result1").innerHTML = "<b>Order Placed!!!</b><br><br>";
-  document.getElementById("disp").src = "img/bg.png";
-  document.getElementById("n_number").innerHTML = "<b>0</b>";
+document.getElementById("pdf").style="display: block; background-color: #20A072; border: none; color: white; padding: 2px 8px; border-radius: 25px; height: 40px; width: 150px;"
+document.getElementById("result1").innerHTML = "<b>Order Placed!!!</b><br><br>";
+document.getElementById("cart_items").innerHTML = "ITEMS ORDERED";
+document.getElementById("b1").style = "display: none;"
+document.getElementById("b2").style = "display: none;"
+document.getElementById("b3").style = "display: none;"
+document.getElementById("disp").src = "img/bg.png";
+document.getElementById("n_number").innerHTML = "<b>0</b>";
+document.getElementById("top").style = "display: none;"
+document.getElementById("cart").style = "display: block;"
+document.getElementById("user").style = "display: none;"
+document.getElementById("success").style = "display: block;"
   window.scrollTo(0, document.getElementById('success').offsetTop);
 
   }
