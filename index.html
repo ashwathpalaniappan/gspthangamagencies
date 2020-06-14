@@ -2870,7 +2870,7 @@
   {
       var y = document.getElementById(x).value;
       var z = parseFloat(y) - 1;
-      if (z > -1 && z < 11)
+      if (z > -1)
       {document.getElementById(x).value = z;}
       carttnumber();
   }
@@ -2879,7 +2879,7 @@
   {
       var y = document.getElementById(x).value;
       var z = parseFloat(y) + 1;
-      if (z > -1 && z < 11)
+      if (z > -1)
       {document.getElementById(x).value = z;}
       carttnumber();
   }
@@ -4860,7 +4860,7 @@ var yyyy = today.getFullYear();
         "currency": "INR",
         "name": "GSP Thangam Agencies",
         "description": "Online Payment",
-        "image": "logo.png",// Replace this with the order_id created using Orders API (https://razorpay.com/docs/api/orders).
+        "image": "logo.png",
         "handler": function (response){
             savetoDB(response);
              } ,
@@ -4872,7 +4872,7 @@ var yyyy = today.getFullYear();
             "address": "note value"
         },
         "theme": {
-            "color": "#38d39f"
+            "color": "#20A072"
         }
     }
     var propay = new Razorpay(options);
