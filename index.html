@@ -2802,13 +2802,18 @@
 			<form>
 				<img src="img/avatar.svg">
 				<h2 class="title">Details</h2>
-				<br><br>
+				<br>
            		<div class="input-div one">
            		   		<input type="text" placeholder="Name" class="input2" id="namefield">
            		</div>
            		<div class="input-div pass">
            		   <div class="div">
                     <input type="text" placeholder="Phone Number" class="input2" id="phonefield">
+            	   </div>
+            	</div>
+                <div class="input-div pass">
+           		   <div class="div">
+                    <input type="text" placeholder="E-mail" class="input2" id="mailfield">
             	   </div>
             	</div>
 				<div class="input-div pass">
@@ -4860,12 +4865,12 @@ var yyyy = today.getFullYear();
         "currency": "INR",
         "name": "GSP Thangam Agencies",
         "description": "Online Payment",
-        "image": "logo.png",
         "handler": function (response){
             savetoDB(response);
              } ,
         "prefill": {
             "name": document.getElementById("namefield").value,
+            "email": document.getElementById("mailfield").value,
             "contact": document.getElementById("phonefield").value
         },
         "notes": {
@@ -4909,8 +4914,17 @@ var yyyy = today.getFullYear();
     Body : "Name:<br>" + name + "<br><br>Phone:<br>" + phn + "<br><br>Address:<br>" + adr1 + ",<br>" + adr2 + ",<br>" + adr3 + ".<br><br>Items:<br>" + item2 + "<br>Total Amount: " + document.getElementById("result_tot").innerText.slice(14) + ""
     });
 
-document.getElementById("pdf").style="display: block; background-color: #20A072; border: none; color: white; padding: 2px 8px; border-radius: 25px; height: 40px; width: 150px;"
-document.getElementById("result1").innerHTML = "<b>Order Placed!!!</b><br><br>";
+    Email.send({
+    Host : "smtp.gmail.com",
+    Username : "thangamagenciesgsp@gmail.com",
+    Password : "sreemaan123",
+    To : document.getElementById("mailfield").value,
+    From : "thangamagenciesgsp@gmail.com",
+    Subject : "GSP - Order Details",
+    Body : "<h3>Hi " + name +", Your order has been placed successfully!! </h3><b>Order Details:</b><br>" + item2 + "<br><b>Total Amount: " + document.getElementById("result_tot").innerText.slice(14) + "</b>"
+    });
+
+document.getElementById("result1").innerHTML = "<b>Order Placed!!!</b><br>Check your mail for Invoice<br><br>";
 document.getElementById("cart_items").innerHTML = "ITEMS ORDERED";
 document.getElementById("b1").style = "display: none;"
 document.getElementById("b2").style = "display: none;"
